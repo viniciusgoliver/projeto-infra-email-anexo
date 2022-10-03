@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Dependencies ...
+      - npm install
+  build:
+    commands:
+      - echo Building static service...      
+      - zip -r fn-service-attatch.zip node_modules/ fn-service-attatch.js
+  post_build:
+    commands:
+      - echo Post Building ...
+      - aws lambda update-function-code --function-name "fn-service-attatch" --zip-file fileb://./fn-service-attatch.zip      

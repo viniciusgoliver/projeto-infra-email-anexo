@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Dependencies ...
+      - npm install
+  build:
+    commands:
+      - echo Building static service...      
+      - zip -r fn-service-consumer.zip node_modules/ fn-service-consumer.js
+  post_build:
+    commands:
+      - echo Post Building ...
+      - aws lambda update-function-code --function-name "fn-service-consumer" --zip-file fileb://./fn-service-consumer.zip      
